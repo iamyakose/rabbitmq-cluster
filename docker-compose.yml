@@ -1,0 +1,66 @@
+version: '3'
+
+services:
+ rabbitmq-node-1:
+  image: rabbitmq:3-management
+  container_name: rabbitmq-node-1
+  hostname: rabbitmq-node-1
+  ports:
+    - "4369:4369"
+    - "5671:5671"
+    - "5672:5672"
+    - "15672:15672"
+    - "25672:25672"
+  networks: 
+   - cluster-network
+  volumes:
+   - $PWD/storage/rabbitmq-node-1:/var/lib/rabbitmq
+  environment:
+   - RABBITMQ_ERLANG_COOKIE=WIWVHCDTCIUAWANLMQAW
+   - RABBITMQ_DEFAULT_USER=admin
+   - RABBITMQ_DEFAULT_PASS=Admin@123  
+  
+ rabbitmq-node-2:
+  image: rabbitmq:3-management
+  container_name: rabbitmq-node-2
+  hostname: rabbitmq-node-2
+  ports:
+   - "4371:4369"
+   - "5673:5671"
+   - "5674:5672"
+   - "15673:15672"
+   - "25673:25672"
+
+  networks: 
+   - cluster-network
+  volumes:
+   - $PWD/storage/rabbitmq-node-2:/var/lib/rabbitmq
+  environment:
+   - RABBITMQ_ERLANG_COOKIE=WIWVHCDTCIUAWANLMQAW
+   - RABBITMQ_DEFAULT_USER=admin
+   - RABBITMQ_DEFAULT_PASS=Admin@123
+      
+ rabbitmq-node-3:
+  image: rabbitmq:3-management
+  container_name: rabbitmq-node-3
+  hostname: rabbitmq-node-3
+  ports:
+   - "4372:4369"
+   - "5675:5671"
+   - "5676:5672"
+   - "15674:15672"
+   - "25674:25672"
+
+  networks: 
+   - cluster-network
+  volumes:
+   - $PWD/storage/rabbitmq-node-3:/var/lib/rabbitmq
+  environment:
+   - RABBITMQ_ERLANG_COOKIE=WIWVHCDTCIUAWANLMQAW
+   - RABBITMQ_DEFAULT_USER=admin
+   - RABBITMQ_DEFAULT_PASS=Admin@123
+ 
+  
+networks:
+ cluster-network:
+  driver: bridge
